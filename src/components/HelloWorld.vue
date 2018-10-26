@@ -82,7 +82,7 @@
     </ul>
   </div>
 </template>
-
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
 export default {
   name: 'HelloWorld',
