@@ -9,13 +9,40 @@
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
-
+import axios from 'axios'
 export default {
-  name: 'App'
+  name: 'App',
+  methods:{
+  
+	onSignIn(googleUser){
+	
+	  var profile = googleUser.getBasicProfile();
+	 
+	  console.log('Name: ' + profile.getName());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  
+	  var name = profile.getName();
+	  var email = profile.getEmail();
+	  
+	  var url = "http://localhost:8081/index";
+	  
+	  axios.post(url,{
+			firstName : name,
+			Email : email
+		}
+	  ).then(response => {
+		this.response = response.data;
+	  }).catch(e => {
+		console.log("error", e);
+	  });			
+
+	}
+  
+  }
   
 }
 </script>
-<meta name="google-signin-client_id" content="951702162449-c1rvbviahpjsi27rvd2va1va9qq9dga5.apps.googleusercontent.com">
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
