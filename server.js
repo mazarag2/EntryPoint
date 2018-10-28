@@ -5,10 +5,12 @@ app = express();
 app.use(serveStatic(path.join(__dirname, "dist")));
 console.log(path.join(__dirname, "dist"));
 app.use(express.static(__dirname));
+const jade = require('pug');
 var port = process.env.PORT || 8081;
 const qstring = require('querystring');
 app.listen(port);
 console.log("server started "+port);
+
 app.set('view engine', 'jade');
 app.engine('jade', jade.__express);
 
