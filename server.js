@@ -5,11 +5,12 @@ app = express();
 app.use(serveStatic(path.join(__dirname, "dist")));
 console.log(path.join(__dirname, "dist"));
 app.use(express.static(__dirname));
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8081;
 const qstring = require('querystring');
 app.listen(port);
 console.log("server started "+port);
-
+app.set('view engine', 'jade');
+app.engine('jade', jade.__express);
 
 var firebase = require("firebase");
 var config = {
@@ -41,10 +42,9 @@ app.post('/index',function(req,res){
 		var postData = qstring.parse(bodyData);
 		console.log(postData);
 		var name = postData[firstName];
+		res.send(name);
 		
-		
-		
+		 
 	});
-	
 	
 });
