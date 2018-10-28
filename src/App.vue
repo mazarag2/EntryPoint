@@ -1,13 +1,12 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">	
-    <router-view/>
+   
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
   </div>
   
 </template>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
 import axios from 'axios'
 export default {
@@ -16,7 +15,7 @@ export default {
   
 	onSignIn(googleUser){
 	
-	  var profile = googleUser.getBasicProfile();
+	  var authToken = googleUser.getAuthResponse().id_token;
 	 
 	  console.log('Name: ' + profile.getName());
 	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
@@ -27,11 +26,11 @@ export default {
 	  var url = "http://localhost:8081/index";
 	  
 	  axios.post(url,{
-			firstName : name,
+			token : authToken,
 			Email : email
 		}
 	  ).then(response => {
-		this.response = response.data;
+		console.log(response);
 	  }).catch(e => {
 		console.log("error", e);
 	  });			
