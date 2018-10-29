@@ -13,7 +13,6 @@ new Vue({
   components: { App },
   template: '<App/>',
   methods:{
-	  
 	mounted() {
 		gapi.signin2.render('google-signin-button', {
 		  onsuccess: this.onSignIn
