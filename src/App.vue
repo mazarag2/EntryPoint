@@ -2,7 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">	
    
-	<div class="g-signin2" data-onsuccess="onSignIn"></div>
+	<div class="g-signin2" id=google-signin-button data-onsuccess="onSignIn"></div>
   </div>
   
 </template>
@@ -12,7 +12,11 @@ import axios from 'axios'
 export default {
   name: 'App',
   methods:{
-  
+	mounted() {
+		gapi.signin2.render('google-signin-button', {
+		  onsuccess: this.onSignIn
+		})
+	},
 	onSignIn(googleUser){
 	
 	  var authToken = googleUser.getAuthResponse().id_token;
