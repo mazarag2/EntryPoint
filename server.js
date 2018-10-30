@@ -23,7 +23,12 @@ var config = {
     storageBucket: "entrypoint-9aa5e.appspot.com",
     messagingSenderId: "951702162449"
 };
+
 firebase.initializeApp(config);
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.LOCAL_CLIENT_ID);
+
+
 
 app.get('/',function(req,res){
 	
@@ -43,10 +48,26 @@ app.post('/index',function(req,res){
 		
 		var postData = qstring.parse(bodyData);
 		console.log(postData);
-		var name = postData[firstName];
-		res.send(name);
+		var token = postData[token];
 		
-		 
+		async function verify(token,res) {
+		  const ticket = await client.verifyIdToken({
+			  idToken: token,
+			  audience: [process.env.CLIENT_ID,process.env.PROD_CLIENT_ID]
+			  // Specify the CLIENT_ID of the app that accesses the backend
+			  // Or, if multiple clients access the backend:
+			  //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+			  //Ideally we want to pass the client id as part fo the request from vue rather than always get
+			  //from env
+		  });
+		  const payload = ticket.getPayload();
+		  const userid = payload['sub'];
+		  
+		  res.send(userid);
+		  // If request specified a G Suite domain:
+		  //const domain = payload['hd'];
+		}
+		verify(token,res).catch(console.error); 
 	});
 	
 });

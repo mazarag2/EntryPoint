@@ -31,8 +31,7 @@ new Vue({
 		  var url = "http://localhost:8081/index";
 		  
 		  axios.post(url,{
-				token : authToken,
-				Email : email
+				token : authToken
 			}
 		  ).then(response => {
 			console.log(response);

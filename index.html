@@ -4,11 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<meta name="google-signin-client_id" content="951702162449-c1rvbviahpjsi27rvd2va1va9qq9dga5.apps.googleusercontent.com">
+	<meta name="google-signin-client_id" content="951702162449-2elm9vji2hbd9q5istltnl8lkao6jufc.apps.googleusercontent.com">
     <title>entrypoint</title>
   </head>
   <body>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+	<script>
+	function onSignIn(googleUser) {
+			var id_token = googleUser.getAuthResponse().id_token;
+			console.log(id_token);
+			var client_id = "951702162449-2elm9vji2hbd9q5istltnl8lkao6jufc";
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', 'https://localhost:8081/index');
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+			
+			  
+			  console.log('Signed in as: ' + xhr.responseText);
+			};
+			xhr.send('idtoken=' + id_token);
+			xhr.send('clientid=' + client_id);
+	}
+	</script>
   </body>
 </html>
