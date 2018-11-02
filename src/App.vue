@@ -2,7 +2,9 @@
   <div id="app">
     <img src="./assets/logo.png">	
    
-	<div class="g-signin2" id="google-signin-button" data-onsuccess="onSignIn"></div>
+	
+		<div class="g-signin2" id="google-signin-button" data-onsuccess="onSignIn"></div>
+	
 
   </div>
   

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="951702162449-2elm9vji2hbd9q5istltnl8lkao6jufc.apps.googleusercontent.com">
     <title>entrypoint</title>
@@ -20,7 +21,8 @@
 			xhr.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 				   // Typical action to be performed when the document is ready:
-				   console.log(xhr.responseText);
+					$("html").html(xhr.responseText);
+					console.log(xhr.responseText);
 				}
 			};
 			xhr.send('idtoken=' + id_token);
