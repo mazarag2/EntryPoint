@@ -7,7 +7,7 @@ app.use(serveStatic(path.join(__dirname, "dist")));
 console.log(path.join(__dirname, "dist"));
 app.use(express.static(__dirname));
 const jade = require('pug');
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 8080;
 const qstring = require('querystring');
 app.listen(port);
 console.log("server started "+port);
@@ -34,9 +34,18 @@ const client = new OAuth2Client(process.env.LOCAL_CLIENT_ID);
 console.log(process.env.LOCAL_CLIENT_ID);
 app.get('/',function(req,res){
 	
-	
+	console.log()
+	if(req.)
 	res.sendfile(path.resolve(__dirname,'src/app.vue'));
 	
+	
+	
+});
+
+app.get('/home',function(req,res){
+	
+	console.log(req);
+	res.render('home');
 	
 });
 
