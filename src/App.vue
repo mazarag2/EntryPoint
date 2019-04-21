@@ -2,16 +2,16 @@
   <div id="app">
 	<img src="./assets/logo.png">	
 	<!-- div class="g-signin2" data-onsuccess="onSignIn"></div -->
-	<a id="signin-button" class="g-signin2" v-on:click="signIn">
-      Sign in with Google
-	</a>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Vue from 'vue'
-
+import router from './router/router.js'
+import home from './components/home.vue'
+import signIn from './components/signIn.vue'
 export default {
   name: 'Login',
   data: function (router) {
@@ -24,33 +24,31 @@ export default {
   methods: {
     signIn: function () {
       Vue.googleAuth().signIn(this.onSignInSuccess, this.onSignInError)
-    },
-    onSignInSuccess: function (authorizationCode) {
-	  console.log(authorizationCode);
-      this.toggleLoading()
-      this.resetResponse()
+	    Vue.googleAuth().directAccess()
 	  
-      this.$http.post('http://localhost:8080/home', { idtoken : authorizationCode, redirect_uri: 'postmessage' }).then(function (response) {
-        if (response.body) {
-          var data = response.body
-          // Save to vuex
-          var token = 'Bearer ' + data.token
-          this.$store.commit('SET_USER', data.user_data)
-          this.$store.commit('SET_TOKEN', token)
-          // Save to local storage as well 
-          // ( or you can install the vuex-persistedstate plugin so that you won't have to do this step, only store to Vuex is sufficient )
-          if (window.localStorage) {
-            window.localStorage.setItem('user', JSON.stringify(data.user_data))
-            window.localStorage.setItem('token', token)
-          }
-          // redirect to the dashboard
-          this.$router.push({ name: 'home' })
-        }
-      }, function (response) {
-        var data = response.body
-        this.response = data.error
-        console.log('BACKEND SERVER - SIGN-IN ERROR', data)
-      })
+    },
+    async onSignInSuccess(googleUser) {
+	  console.log(googleUser);
+	  //console.log(googleUser.getAuthResponse().id_token);
+	  //var id_token = googleUser['Zi']['id_token'];
+	 // console.log(id_token);
+	  
+      //this.toggleLoading()
+      //this.resetResponse()
+	  
+    console.log(this);
+    this.$router.replace('home');
+	  let response = await axios.get('http://localhost:8081/reviews');
+	  console.log(response.data);
+    let reviews = response.data;
+    router.push('home');
+    const ComponentCtor = Vue.extend(home);
+    const componentInstance = new ComponentCtor();
+    componentInstance.$mount('#home');
+   
+
+      
+	  
     },
     onSignInError: function (error) {
       this.response = 'Failed to sign-in'

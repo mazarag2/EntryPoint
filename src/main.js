@@ -1,18 +1,22 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
-import router from './router'
+import App from './App.vue'
+import router from './router/router.js'
+import BootstrapVue from 'bootstrap-vue'
+import home from './components/home.vue'
+import signIn from './components/signIn.vue'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.component('home',home);
+Vue.component('signIn',signIn);
 
 /* eslint-disable no-new */
 
 import GoogleAuth from 'vue-google-auth'
 
 Vue.use(GoogleAuth, { clientID: '951702162449-2elm9vji2hbd9q5istltnl8lkao6jufc.apps.googleusercontent.com' })
-Vue.googleAuth().load()
-
+Vue.use(BootstrapVue);
 /*
 Vue.component('g-signin-button', {
   template: '<div ref="signinBtn" class="btn-sign-in">Sign In</div>',
@@ -42,6 +46,7 @@ new Vue({
   router,
   components:{App},
   template: '<App/>',
+  render: h => h(App),
   methods: {
     onUserLoggedIn (user) {
       console.log(user)
