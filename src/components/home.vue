@@ -42,6 +42,10 @@
           <h1 class="my-4">Page Heading
             <small>Secondary Text</small>
           </h1>
+       
+          <div id="ReviewContainer">
+            <reviews></reviews>
+          </div>
 
           <!-- Blog Post -->
           <div class="card mb-4">
@@ -173,8 +177,53 @@
     </footer>
 </div>
 </template>
-<script defer>
+<script>
+
+
+import axios from 'axios';
+import  Vue  from "vue";
+
+Vue.component('reviews',{
+template : '<ul><li v-for="review in reviewData" :key="review.key">{{ review.reviewName }}</li></ul>',
+props: ['reviewData'],
+methods : {
+
+    async renderReviews() {
+
+       let response = await axios.get('http://localhost:8081/reviewsV2');
+	     console.log(response.data);
+       this.reviewData = response.data;
+    }
+
+},
+mounted : async function(){
+  await this.renderReviews();
+}
+
+
+});
 export default{
-  name:'home'
+  name:'home',
+  data(){
+		return {
+			reviews: ''
+		}
+	},
+  methods : {
+    async renderReviews() {
+
+       let response = await axios.get('http://localhost:8081/reviewsV2');
+	     console.log(response.data);
+       let reviews = response.data;
+
+
+
+    }
+
+
+
+  }
  }
+
+
 </script>

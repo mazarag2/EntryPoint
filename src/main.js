@@ -6,17 +6,23 @@ import router from './router/router.js'
 import BootstrapVue from 'bootstrap-vue'
 import home from './components/home.vue'
 import signIn from './components/signIn.vue'
-
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.config.productionTip = false;
 Vue.component('home',home);
 Vue.component('signIn',signIn);
 
 /* eslint-disable no-new */
 
-import GoogleAuth from 'vue-google-auth'
+//yea use Firebase for auth lol
 
+import GoogleAuth from 'vue-google-auth'
+console.log(process.env.VUE_APP_LOCAL_CLIENT_ID);
 Vue.use(GoogleAuth, { clientID: '951702162449-2elm9vji2hbd9q5istltnl8lkao6jufc.apps.googleusercontent.com' })
 Vue.use(BootstrapVue);
+
+
+
 /*
 Vue.component('g-signin-button', {
   template: '<div ref="signinBtn" class="btn-sign-in">Sign In</div>',

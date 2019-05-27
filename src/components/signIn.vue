@@ -14,7 +14,8 @@ export default {
   methods: {
     signIn: function () {
       Vue.googleAuth().signIn(this.onSignInSuccess, this.onSignInError)
-	    Vue.googleAuth().directAccess()
+      Vue.googleAuth().directAccess()
+      console.log(Vue.googleAuth);
 	  
     },
     async onSignInSuccess(googleUser) {
@@ -25,10 +26,8 @@ export default {
 	  
       //this.toggleLoading()
       //this.resetResponse()
-	  
-    console.log(this);
     this.$router.replace('home');
-	  let response = await axios.get('http://localhost:8081/reviews');
+	  let response = await axios.get('http://localhost:8081/reviewsV2');
 	  console.log(response.data);
     let reviews = response.data;
     router.push('home');
