@@ -34,12 +34,8 @@ const client = new OAuth2Client(process.env.LOCAL_CLIENT_ID);
 console.log(process.env.LOCAL_CLIENT_ID);
 app.get('/',function(req,res){
 	
-	console.log()
-	if(req.)
 	res.sendfile(path.resolve(__dirname,'src/app.vue'));
-	
-	
-	
+
 });
 
 app.get('/home',function(req,res){
